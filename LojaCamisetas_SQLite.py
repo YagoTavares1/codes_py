@@ -16,7 +16,7 @@ with sqlite3.connect('camisetas.db') as conexao:
     '''
     cursor.execute(sql)
     sql='''
-    INSERT INTO Compras(id,nome,tamanho,data)
+    INSERT INTO Compras(nome,tamanho,data)
     values(?,?,?,?)
     '''
     espaco()
@@ -40,7 +40,9 @@ with sqlite3.connect('camisetas.db') as conexao:
             tamanho='Médio'
         elif tamanho_op == '3':
             tamanho='Grande'
-        else: print('Opção inválida'), exit()
+        else: 
+            print('Opção inválida')
+            exit()
         espaco()
         data=time.strftime('%d/%m/%y')
         cursor.execute('''
@@ -49,7 +51,8 @@ with sqlite3.connect('camisetas.db') as conexao:
         ''', (marca,tamanho,data))
         espaco()
         print('Compra registrada com sucesso, parabéns')
-        print(f'Marca:{marca} | Tamanho: {tamanho} | Data da compra: {data}')
+        id=cursor.lastrowid
+        print(f'Marca:{marca} | Tamanho: {tamanho} | Data da compra: {data} \n ID da compra: {id}')
         espaco()
     else:
         print("Agradecemos a sua atenção")
